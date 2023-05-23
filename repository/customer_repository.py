@@ -1,7 +1,5 @@
-from models.customer_model import CustomerModel
+from models.customer_model import CustomerModel, OrderModel
 from alchemy.session import session
-from models.order_model import OrderModel
-
 
 
 class CustomerRepository:
@@ -18,6 +16,10 @@ class CustomerRepository:
 
     def add_item(self, customer: CustomerModel):
         self.__session.add(customer)
+
+    def update_item(self, customer_id, new_customer_name):
+        customer = self.__session.get(self.__model, customer_id)
+        customer.customer_name = new_customer_name
 
     def remove_item_by_id(self, customer_id):
         customer = self.__session.get(self.__model, customer_id)
